@@ -1,0 +1,22 @@
+<Project>
+  <ItemGroup Condition="'$(RuntimeIdentifier)' == 'ios-arm64' or '$(RuntimeIdentifier)' == 'iossimulator-arm64'">
+    <DotNativeNativeSource Include="$(MSBuildThisFileDirectory)../Platform/iOS/*.swift" />
+    <DotNativePluginEntry Include="FilePickerPlugin" />
+  </ItemGroup>
+  <ItemGroup Condition="$([System.String]::Copy('$(RuntimeIdentifier)').StartsWith('osx-'))">
+    <DotNativeNativeSource Include="$(MSBuildThisFileDirectory)../Platform/Mac/*.swift" />
+    <DotNativePluginEntry Include="FilePickerPlugin" />
+  </ItemGroup>
+  <ItemGroup Condition="$([System.String]::Copy('$(RuntimeIdentifier)').StartsWith('win-'))">
+    <DotNativeNativeSource Include="$(MSBuildThisFileDirectory)../Platform/Windows/*.cpp" />
+    <DotNativePluginEntry Include="FilePickerPlugin" />
+  </ItemGroup>
+  <ItemGroup Condition="$([System.String]::Copy('$(RuntimeIdentifier)').StartsWith('linux-')) and '$(RuntimeIdentifier)' != 'linux-bionic-arm64'">
+    <DotNativeNativeSource Include="$(MSBuildThisFileDirectory)../Platform/Linux/*.cpp" />
+    <DotNativePluginEntry Include="FilePickerPlugin" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(RuntimeIdentifier)' == 'linux-bionic-arm64'">
+    <DotNativeNativeSource Include="$(MSBuildThisFileDirectory)../Platform/Android/*.kt" />
+    <DotNativePluginEntry Include="FilePickerPlugin" />
+  </ItemGroup>
+</Project>
